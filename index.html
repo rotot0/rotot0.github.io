@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Akim</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+
+            body {
+                font-family: "IBM Plex Mono", monospace;
+                background: #ffffff;
+                color: #000000;
+                line-height: 1.6;
+                padding: 40px 20px;
+                max-width: 800px;
+                margin: 0 auto;
+                font-size: 18px;
+            }
+
+            h1 {
+                font-size: 32px;
+                font-weight: 600;
+                margin-bottom: 30px;
+                text-align: left;
+            }
+
+            h2 {
+                font-size: 22px;
+                font-weight: 600;
+                margin-top: 40px;
+                margin-bottom: 15px;
+                border-bottom: 3px solid #000000;
+                padding-bottom: 5px;
+                display: inline-block;
+            }
+
+            p {
+                margin-bottom: 15px;
+                font-weight: 400;
+            }
+
+            a {
+                color: #000000;
+                text-decoration: underline;
+                text-decoration-thickness: 1.5px;
+            }
+
+            a:hover {
+                text-decoration: none;
+            }
+
+            .section {
+                margin-bottom: 40px;
+            }
+
+            .contact-info {
+                margin-top: 30px;
+            }
+
+            .contact-info a {
+                margin-right: 20px;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .publication-links {
+                margin-bottom: 20px;
+            }
+
+            .period {
+                font-weight: 300;
+                color: #666666;
+                font-size: 13px;
+            }
+
+            .conference-name {
+                font-weight: 300;
+                color: #666666;
+                font-size: 16px;
+            }
+
+            .paper-title {
+                text-decoration: underline;
+                text-decoration-thickness: 2px;
+            }
+
+            .publication-links {
+                margin-top: 5px;
+                /*display: flex;*/
+                /*justify-content: flex-end;*/
+                gap: 8px;
+            }
+
+            .publication-links a {
+                /*margin-right: 15px;*/
+                align-content: flex-end;
+                padding: 2px 6px;
+                background-color: #f5f5f5;
+                border-radius: 3px;
+                text-decoration: none;
+                font-size: 14px;
+                color: #333;
+            }
+
+            .publication-links a:hover {
+                background-color: #e0e0e0;
+            }
+
+            .authors {
+                font-style: italic;
+                color: #444444;
+            }
+
+            .work-item {
+                margin-bottom: 25px;
+            }
+
+            .work-item:last-child {
+                margin-bottom: 0;
+            }
+            /*.work-item a {
+                color: #1a73e8; /* clean blue tone */
+                text-decoration: none;
+                transition:
+                    color 0.2s ease,
+                    border-bottom 0.2s ease;
+                border-bottom: 1px solid transparent;
+            }*/
+
+            /*.work-item a:hover,
+            .work-item a:focus {
+                color: #0c47a1; /* darker shade on hover */
+                border-bottom: 1px solid #0c47a1;
+            }
+            .work-item a:active {
+                color: #06306f; /* pressed state */
+            }*/
+
+            .section-bio {
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+
+            .section-bio a,
+            .work-item a {
+                /*margin-right: 15px;*/
+                align-content: flex-end;
+                padding: 2px 6px;
+                background-color: #f5f5f5;
+                border-radius: 3px;
+                text-decoration: none;
+                font-size: 16px;
+                color: #333;
+            }
+
+            .section-bio a:hover,
+            .work-item a:hover {
+                background-color: #e0e0e0;
+            }
+
+            @media (max-width: 600px) {
+                body {
+                    padding: 20px 15px;
+                }
+
+                .contact-info a {
+                    display: block;
+                    margin-bottom: 10px;
+                    margin-right: 0;
+                }
+            }
+
+            /* Theme toggle button */
+            .theme-toggle {
+                position: fixed;
+                top: 16px;
+                right: 16px;
+                padding: 6px 10px;
+                font-size: 14px;
+                border: 1px solid #000000;
+                background: #f5f5f5;
+                color: #000000;
+                border-radius: 6px;
+                cursor: pointer;
+            }
+            .theme-toggle:hover {
+                background: #eaeaea;
+            }
+
+            /* Dark mode overrides */
+            body.dark {
+                background: #111111;
+                color: #eaeaea;
+            }
+            body.dark h2 {
+                border-bottom-color: #eaeaea;
+            }
+            body.dark a:active {
+                color: #e8f0ff;
+            }
+            body.dark .period,
+            body.dark .conference-name {
+                color: #aaaaaa;
+            }
+            body.dark .authors {
+                color: #bbbbbb;
+            }
+            body.dark .publication-links a,
+            body.dark .work-item a,
+            bo.dark .section-bio a {
+                background-color: #222222;
+                color: #e0e0e0;
+            }
+            body.dark .publication-links a:hover,
+            body.dark .work-item a:hover,
+            bo.dark .section-bio a:hover {
+                background-color: #333333;
+            }
+            body.dark .theme-toggle {
+                border-color: #e0e0e0;
+                background: #1f1f1f;
+                color: #e0e0e0;
+            }
+            body.dark .theme-toggle:hover {
+                background: #2a2a2a;
+            }
+        </style>
+    </head>
+    <body>
+        <button
+            id="theme-toggle"
+            class="theme-toggle"
+            aria-label="Toggle dark mode"
+            aria-pressed="false"
+        >
+            Dark mode
+        </button>
+        <h1>Akim Kotelnikov</h1>
+
+        <div class="section-bio">
+            <p>
+                I am ML researcher at
+                <a href="https://research.yandex.com">Yandex.Research</a>,
+                mostly working on deep learning models for tabular data.
+                Previously I had internships as Quant Researcher at
+                <a href="https://pinely.com">Pinely</a> and as ML Engineer at
+                <a href="https://yandex.com/">Yandex</a>. I obtained my BSc and
+                MSc degrees at
+                <a href="https://cs.hse.ru/en/">HSE University</a>.
+            </p>
+            <p>
+                I am mostly intereseted in deep learning for tabular data with
+                main focus on pushing limits of neural networks, e.g. new
+                state-of-the-art architectures or approaches, tabular
+                foundational models, diffusion models for tabular data. I am
+                also curious about Depp Learning for trading and portfolio
+                optimization.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>Work</h2>
+            <div class="work-item">
+                <p>
+                    <strong> * ML Researcher</strong> at
+                    <a href="https://research.yandex.com">Yandex.Research</a>
+                    <span class="period">(2022 - Present)</span>
+                </p>
+            </div>
+
+            <div class="work-item">
+                <p>
+                    <strong> * Quantitative Researcher intern</strong> at
+                    <a href="https://pinely.com">Pinely</a>
+                    <span class="period">(summer 2023)</span>
+                </p>
+            </div>
+
+            <div class="work-item">
+                <p>
+                    <strong> * ML Engineer intern</strong> at
+                    <a href="https://yandex.com/">Yandex</a>
+                    <span class="period">(summer 2021)</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="section-publications">
+            <h2>Publications</h2>
+            <ul>
+                <li style="margin-bottom: 30px">
+                    <span class="conference-name"> * [ICML 2023]</span>
+                    <span class="paper-title"
+                        >TabDDPM: Modelling Tabular Data with Diffusion
+                        Models.</span
+                    >
+                    <span class="authors"
+                        ><strong>Akim Kotelnikov</strong>, Dmitry Baranchuk,
+                        Ivan Rubachev, Artem Babenko.</span
+                    >
+                    <div class="publication-links">
+                        <a href="https://arxiv.org/abs/2209.15421">arXiv</a>
+                        <a href="https://github.com/yandex-research/tab-ddpm"
+                            >GitHub</a
+                        >
+                    </div>
+                </li>
+                <li style="margin-bottom: 30px">
+                    <span class="conference-name"> * [ICLR 2025]</span>
+                    <span class="paper-title">
+                        TabM: Advancing Tabular Deep Learning with
+                        Parameter-Efficient Ensembling.</span
+                    >
+                    <span class="authors">
+                        Yury Gorishniy, <strong>Akim Kotelnikov</strong>, Artem
+                        Babenko.
+                    </span>
+                    <div class="publication-links">
+                        <a href="https://arxiv.org/abs/2410.24210">arXiv</a>
+                        <a href="https://github.com/yandex-research/tabm"
+                            >GitHub</a
+                        >
+                    </div>
+                </li>
+                <li style="margin-bottom: 30px">
+                    <span class="conference-name"> * [ICLR 2024]</span>
+                    <span class="paper-title">
+                        TabR: Tabular Deep Learning Meets Nearest Neighbors
+                    </span>
+                    <span class="authors"
+                        >Yury Gorishniy, Ivan Rubachev, Nikolay Kartashev,
+                        Daniil Shlenskii, <strong>Akim Kotelnikov</strong>,
+                        Artem Babenko.
+                    </span>
+                    <div class="publication-links">
+                        <a href="https://openreview.net/forum?id=rhgIgTSSxW"
+                            >arXiv</a
+                        >
+                        <a
+                            href="https://github.com/yandex-research/tabular-dl-tabr"
+                            >GitHub</a
+                        >
+                    </div>
+                </li>
+                <li>
+                    <span class="conference-name">* [preprint]&nbsp;</span>
+                    <span class="paper-title"
+                        >On Finetuning Tabular Foundation Models.</span
+                    >
+                    <span class="authors">
+                        Ivan Rubachev, <strong>Akim Kotelnikov</strong>, Nikolay
+                        Kartashev, Artem Babenko.
+                    </span>
+                    <div class="publication-links">
+                        <a href="https://arxiv.org/abs/2506.08982">arXiv</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Connect</h2>
+            <div class="email-me" data-user="55nomika" data-domain="moc.liamg">
+                <noscript>Email: name [at] domain [dot] com</noscript>
+            </div>
+            <div class="contact-info">
+                <a href="https://x.com/xRototo">Twitter</a>
+                <a href="https://github.com/rotot0">GitHub</a>
+                <a href="https://linkedin.com/in/akimkot">LinkedIn</a>
+                <a
+                    href="https://scholar.google.com/citations?user=522RzRgAAAAJ&hl=en"
+                    >GoogleScholar</a
+                >
+            </div>
+        </div>
+        <script>
+            (function () {
+                const STORAGE_KEY = "theme";
+                const prefersDark =
+                    window.matchMedia &&
+                    window.matchMedia("(prefers-color-scheme: dark)").matches;
+                const saved = (() => {
+                    try {
+                        return localStorage.getItem(STORAGE_KEY);
+                    } catch (e) {
+                        return null;
+                    }
+                })();
+                const isDark = saved ? saved === "dark" : prefersDark;
+                const body = document.body;
+                const btn = document.getElementById("theme-toggle");
+
+                function applyTheme(dark) {
+                    body.classList.toggle("dark", dark);
+                    if (btn) {
+                        btn.textContent = dark ? "Light mode" : "Dark mode";
+                        btn.setAttribute("aria-pressed", String(dark));
+                    }
+                }
+
+                applyTheme(isDark);
+
+                if (btn) {
+                    btn.addEventListener("click", function () {
+                        const darkNow = !body.classList.contains("dark");
+                        applyTheme(darkNow);
+                        try {
+                            localStorage.setItem(
+                                STORAGE_KEY,
+                                darkNow ? "dark" : "light",
+                            );
+                        } catch (e) {}
+                    });
+                }
+
+                // Build spam-safe email link from reversed data attributes
+                (function () {
+                    var container = document.querySelector(".email-me");
+                    if (!container) return;
+                    var rev = function (s) {
+                        return s.split("").reverse().join("");
+                    };
+                    var user = rev(
+                        container.getAttribute("data-user") || "eman",
+                    );
+                    var domain = rev(
+                        container.getAttribute("data-domain") || "moc.niamod",
+                    );
+                    var addr = user + "@" + domain;
+                    var a = document.createElement("a");
+                    a.href = "mailto:" + addr;
+                    a.textContent = addr;
+                    a.rel = "nofollow";
+                    container.innerHTML = "";
+                    container.appendChild(a);
+                })();
+            })();
+        </script>
+    </body>
+</html>
