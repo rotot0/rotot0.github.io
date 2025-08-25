@@ -320,8 +320,10 @@
                     >
                     <div class="publication-links">
                         <a href="https://arxiv.org/abs/2209.15421">arXiv</a>
-                        <a href="https://github.com/yandex-research/tab-ddpm"
-                            >GitHub</a
+                        <a
+                            href="https://github.com/yandex-research/tab-ddpm"
+                            data-repo="yandex-research/tab-ddpm"
+                            >GitHub (⭐ <span class="star-count">1</span>)</a
                         >
                     </div>
                 </li>
@@ -337,8 +339,10 @@
                     </span>
                     <div class="publication-links">
                         <a href="https://arxiv.org/abs/2410.24210">arXiv</a>
-                        <a href="https://github.com/yandex-research/tabm"
-                            >GitHub</a
+                        <a
+                            href="https://github.com/yandex-research/tabm"
+                            data-repo="yandex-research/tabm"
+                            >GitHub (⭐ <span class="star-count">1</span>)</a
                         >
                     </div>
                 </li>
@@ -358,7 +362,8 @@
                         >
                         <a
                             href="https://github.com/yandex-research/tabular-dl-tabr"
-                            >GitHub</a
+                            data-repo="yandex-research/tabular-dl-tabr"
+                            >GitHub (⭐ <span class="star-count">1</span>)</a
                         >
                     </div>
                 </li>
@@ -392,11 +397,12 @@
                 <a href="https://linkedin.com/in/akimkot">LinkedIn</a>
                 <a
                     href="https://scholar.google.com/citations?user=522RzRgAAAAJ&hl=en"
-                    >GoogleScholar</a
+                    >Google Scholar</a
                 >
             </div>
         </div>
         <script>
+            // Dark-theme
             (function () {
                 const STORAGE_KEY = "theme";
                 const prefersDark =
@@ -458,6 +464,66 @@
                     container.appendChild(a);
                 })();
             })();
+        </script>
+        <script>
+            // Cache for GitHub stars with timestamp
+            let starCache = {};
+            const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+
+            async function fetchGitHubStars(repo) {
+                const now = Date.now();
+
+                // Check if we have cached data that's less than 24 hours old
+                if (
+                    starCache[repo] &&
+                    now - starCache[repo].timestamp < CACHE_DURATION
+                ) {
+                    return starCache[repo].stars;
+                }
+
+                try {
+                    const response = await fetch(
+                        `https://api.github.com/repos/${repo}`,
+                    );
+                    if (!response.ok) {
+                        throw new Error("API request failed");
+                    }
+
+                    const data = await response.json();
+                    const stars = data.stargazers_count;
+
+                    // Cache the result with current timestamp
+                    starCache[repo] = {
+                        stars: stars,
+                        timestamp: now,
+                    };
+
+                    return stars;
+                } catch (error) {
+                    console.log(`Failed to fetch stars for ${repo}:`, error);
+                    // Return cached value if available, otherwise keep current value
+                    return starCache[repo] ? starCache[repo].stars : null;
+                }
+            }
+
+            async function updateAllStars() {
+                const githubLinks = document.querySelectorAll("a[data-repo]");
+
+                for (const link of githubLinks) {
+                    const repo = link.getAttribute("data-repo");
+                    const starSpan = link.querySelector(".star-count");
+
+                    if (repo && starSpan) {
+                        const stars = await fetchGitHubStars(repo);
+                        if (stars !== null) {
+                            starSpan.textContent = stars;
+                        }
+                    }
+                }
+            }
+
+            // Update stars when page loads
+            document.addEventListener("DOMContentLoaded", updateAllStars);
         </script>
     </body>
 </html>
